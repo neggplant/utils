@@ -6,11 +6,11 @@ def timer(func):
         t0 = time.time()
         func(*args,**kwds)
         t1 = time.time()
-        print('wrapper耗时%0.3f'%(t1-t0,))
+        print('耗时{:.2f}'.format(t1-t0))
     return wrapper
 
 @timer
 def do_something(delay):
     print('函数do_something开始')
     time.sleep(delay)
-    print('函数do_something结束')
+    print("do_something", end="")
