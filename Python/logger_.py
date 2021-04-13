@@ -39,7 +39,8 @@ else:
     # rHandler = RotatingFileHandler("log.log", maxBytes=1 * 1024, backupCount=3)
     # 按文件大小备份，定义一个RotatingFileHandler，最多备份3个日志文件，日志文件名后面加."%Y-%m-%d"
     rHandler = TimedRotatingFileHandler("a.log", when="S", backupCount=3)
-    rHandler.suffix = "-%Y-%m-%d_%H-%M-%S.log"
+    rHandler.suffix = "-%Y-%m-%d_-%H-%M-%S.log"
+    # rHandler.extMatch = r"^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(\.\w+)?$"
     formatter = logging.Formatter(
         fmt='%(asctime)s.%(msecs)05d %(levelname)s - %(filename)s - [line:%(lineno)d] - %(message)s',
         datefmt="%Y-%m-%d %H:%M:%S")

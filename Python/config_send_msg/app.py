@@ -1,6 +1,6 @@
 from flask import Flask,request
-from utils import msg
-from utils.message import send_msgs
+from .utils import msg
+from .utils.message import send_msgs
 
 app = Flask(__name__)
 
