@@ -17,3 +17,7 @@
 ```
 # Python工具函数
 ```
+- config_send_msg    
+使用配置文件进行消息选择发送配置
+- logger_demo    
+日志配置文件分别放在不同位置
