@@ -1,4 +1,4 @@
-from .simple_structure import app
+from simple_structure import app
 # from .complex_structure import app
 
 
