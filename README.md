@@ -11,7 +11,6 @@
 ./killnameproc manage
 ```
 
-
 ### Python
 - tool_function.ipynb  
 ```
@@ -21,3 +20,7 @@
 使用配置文件进行消息选择发送配置
 - logger_demo    
 日志配置文件分别放在不同位置
+
+### deploy
+
+- k8s-deploy  脚本部署k8s相关文件

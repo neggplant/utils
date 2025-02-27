@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{NAME}}
+  namespace: {{NAME}}
+  labels:
+    app: {{NAME}}
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: {{NAME}}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{NAME}}
+    spec:
+      containers:
+        - name: {{NAME}}
+          image: {{IMAGE}}
+          imagePullPolicy: IfNotPresent
+          command:
+            - uwsgi
+            - '-i'
+            - uwsgi_config.ini
+          env:
+            - name: FLASK_CONFIG
+              value: {{FLASK_CONFIG}}
+            - name: TZ
+              value: {{TZ}}
+            - name: aliyun_logs_{{NAME}}-sls-log_ttl
+              value: "15"
+            - name: aliyun_logs_{{NAME}}-log_ttl
+              value: "15"
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - cron
+            preStop:
+              exec:
+                command:
+                  - /bin/sleep
+                  - '30'
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1111Mi
+            requests:
+              cpu: 300m
+              memory: 512Mi
+          tty: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
